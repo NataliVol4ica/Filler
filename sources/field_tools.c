@@ -106,6 +106,7 @@ void	read_field(void)
 			free(str);
 		}
 		piece->delta_w = 0;
+		piece->delta_h = 0;
 		
 
 		fprintf(fd, "Piece: \n");
@@ -118,69 +119,79 @@ void	read_field(void)
 			fprintf(fd, "\n");
 		}
 		
+		i = -1; //obrezka sverhu vniz 
+		while (++i < piece->init_height)
+		{
+			j = -1;
+			while (++j < piece->init_width)
+				if (piece->cells[i][j].init)
+					break;
+			fprintf(fd, "i %d w %d j %d\n", i, piece->init_width, j);
+			if (j != piece->init_width)
+				break;
+			piece->delta_h++;
+			piece->height--;
+		}
+		i = piece->init_height; //obrezka snizu vverh
+		while (i)
+		{
+			i--;
+			j = -1;
+			while (++j < piece->init_width)
+				if (piece->cells[i][j].init)
+					break;
+			if (j != piece->init_width)
+				break;
+			piece->height--;
+		}
+		i = -1; //obrezka sleva napravo
+		while (++i < piece->init_width)
+		{
+			j = -1;
+			while (++j < piece->init_height)
+				if (piece->cells[j][i].init)
+					break;
+			if (j != piece->init_height)
+				break;
+			piece->delta_w++;
+			piece->width--;
+		}
+		i = piece->init_width; //obrezka snizu vverh
+		while (i)
+		{
+			i--;
+			j = -1;
+			while (++j < piece->init_height)
+				if (piece->cells[j][i].init)
+					break;
+			if (j != piece->init_height)
+				break;
+			piece->width--;
+		}
+		//sohranit obrezanii piece
+		i = -1;
+		while (++i < piece->height)
+		{
+			j = -1;
+			while (++j < piece->width)
+				piece->cells[i][j].val =
+				piece->cells[i + piece->delta_h][j + piece->delta_w].init;
+		}
+		fprintf(fd, "Cut piece: \n");
+		i = -1;
+		while (++i < piece->height)
+		{
+			j = -1;
+			while (++j < piece->width)
+				fprintf(fd, "%c", (piece->cells[i][j].val ? '*' : '.'));
+			fprintf(fd, "\n");
+		}
+		
 		fclose(fd);
-
-		//i = -1; //obrezka sleva napravo
-		//while (++i < piece->init_height)
-		//{
-		//	j = -1;
-		//	while (++j < piece->init_width)
-		//		if (piece->cells[i][j].init)
-		//			break;
-		//	if (j == piece->init_width)
-		//		break;
-		//	piece->delta_w++;
-		//	piece->width--;
-		//}
-		//i = piece->init_height; //obrezka sprava nalevo
-		//while (i)
-		//{
-		//	i--;
-		//	j = -1;
-		//	while (++j < piece->init_width)
-		//		if (piece->cells[i][j].init)
-		//			break;
-		//	if (j == piece->init_width)
-		//		break;
-		//	piece->height--;
-		//}
-		//i = -1; //obrezka sverhu vniz
-		//while (++i < piece->init_width)
-		//{
-		//	j = -1;
-		//	while (++j < piece->init_height)
-		//		if (piece->cells[j][i].init)
-		//			break;
-		//	if (j == piece->init_height)
-		//		break;
-		//	piece->delta_h++;
-		//	piece->height--;
-		//}
-		//i = piece->init_width; //obrezka snizu vverh
-		//while (i)
-		//{
-		//	i--;
-		//	j = -1;
-		//	while (++j < piece->init_height)
-		//		if (piece->cells[j][i].init)
-		//			break;
-		//	if (j == piece->init_height)
-		//		break;
-		//	piece->height--;
-		//}
-		////sohranit obrezanii piece
-		//i = -1;
-		//while (++i < piece->height)
-		//{
-		//	j = -1;
-		//	while (++j < piece->width)
-		//		piece->cells[i][j].val =
-		//		piece->cells[i + piece->delta_h][j + piece->delta_w].init;
-		//}
-		////call calc func
-		//i = -1;
-		//while (++i < piece->init_height)
-		//	free(piece->cells[i]);
-		//free(piece->cells);
+		//call calc func
+		i = -1;
+		while (++i < piece->init_height)
+			free(piece->cells[i]);
+		free(piece->cells);
 	}
 }

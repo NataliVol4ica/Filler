@@ -126,7 +126,6 @@ void	read_field(void)
 			while (++j < piece->init_width)
 				if (piece->cells[i][j].init)
 					break;
-			fprintf(fd, "i %d w %d j %d\n", i, piece->init_width, j);
 			if (j != piece->init_width)
 				break;
 			piece->delta_h++;
@@ -186,12 +185,13 @@ void	read_field(void)
 				fprintf(fd, "%c", (piece->cells[i][j].val ? '*' : '.'));
 			fprintf(fd, "\n");
 		}
+		//finished reading and input parsing
 		
-		fclose(fd);
 		//call calc func
 		i = -1;
 		while (++i < piece->init_height)
 			free(piece->cells[i]);
 		free(piece->cells);
+		fclose(fd);
 	}
 }

@@ -1,4 +1,4 @@
-NAME = filler
+NAME = nkolosov.filler
 
 HEADERS =	filler \
 			structures
@@ -7,7 +7,8 @@ SRCDIR = ./sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
 FILENAMES =	main \
-			errors
+			errors \
+			field_tools
 
 CFILES = $(patsubst %, $(SRCDIR)/%.c, $(FILENAMES))
 OFILES = $(patsubst %, $(ODIR)/%.o, $(FILENAMES))
@@ -64,3 +65,9 @@ fclean: clean
 	@make fclean -C ./libft
 
 re: fclean all
+
+test:
+	./resources/filler_vm -f ./resources/maps/map00 -p1 ./nkolosov.filler -p2 resources/players/abanlin.filler || true
+
+test2:
+	./resources/filler_vm -f ./resources/maps/map00 -p1 resources/players/carli.filler -p2 resources/players/abanlin.filler || true

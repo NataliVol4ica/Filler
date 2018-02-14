@@ -13,7 +13,8 @@
 #include "filler.h"
 #include "libft.h"
 
-int		main(int ac, char **av)
+int		main(void)
 {
+	read_field();
 	return (0);
 }

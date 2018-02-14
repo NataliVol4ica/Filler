@@ -15,6 +15,10 @@
 
 # include "structures.h"
 
+#include <stdio.h>
+
+void	read_field(void);
+
 /*
 ** ERRORS
 */

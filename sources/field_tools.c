@@ -51,7 +51,6 @@ void	read_field(void)
 			get_next_line(0, &str);
 		}
 		first_reading = 0;
-		fprintf(fd, "first str \"%s\"\n", str);
 		free(str);
 		//get_next_line(0, &str);
 		//free(str);
@@ -217,17 +216,7 @@ void	read_field(void)
 						if (piece->cells[i1][j1].val)
 							counter += map->cells[i + i1][j + j1].initial;
 				if (counter == 1)
-				{
 					map->cells[i][j].valid = 1;
-					counter = 0;
-					i1 = -1;
-					fprintf(fd, "Valid piece map [%d %d] :\n", i, j);
-					while (++i1 < piece->height && (j1 = -1)){
-						while (++j1 <piece->width)
-							fprintf(fd, "%d", map->cells[i + i1][j + j1].initial);
-					fprintf(fd, "\n");
-						}
-				}
 				else
 					map->cells[i][j].valid = 0;
 			}
@@ -304,15 +293,7 @@ void	read_field(void)
 			ft_printf("%d %d\n", optx - piece->delta_h, opty - piece->delta_w);
 		else
 			break ;
-		////looking for optimal coordinates
-		//opt = map->width * map->height;
-		//optx = -1;
-		//opty = -1;
-		//i = -1;
-		//while (++i < map->height && (j = -1))
-		//	while (++j < map->width)
-		//		if (map->cells[i][j].valid && opt > )
-		//call calc func
+		//cleaning
 		i = -1;
 		while (++i < piece->init_height)
 			free(piece->cells[i]);

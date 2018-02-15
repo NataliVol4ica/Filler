@@ -15,7 +15,7 @@ OFILES = $(patsubst %, $(ODIR)/%.o, $(FILENAMES))
 
 LIBDIR = ./libft
 LIBFT = $(LIBDIR)/libft.a
-FLAGS = #-Wall -Wextra -Werror -O3
+FLAGS = -w #-Wall -Wextra -Werror -O3
 LIBINCDIR = $(LIBDIR)/includes
 
 ODIR = ./obj
@@ -67,7 +67,7 @@ fclean: clean
 re: fclean all
 
 test:
-	./resources/filler_vm -f ./resources/maps/map00 -p1 ./nkolosov.filler -p2 resources/players/abanlin.filler || true
+	./resources/filler_vm -q -f ./resources/maps/map00 -p1 ./nkolosov.filler -p2 resources/players/abanlin.filler || true
 
 test2:
 	./resources/filler_vm -f ./resources/maps/map00 -p1 resources/players/carli.filler -p2 resources/players/abanlin.filler || true

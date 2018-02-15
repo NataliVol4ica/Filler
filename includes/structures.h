@@ -17,13 +17,13 @@
 
 typedef enum
 {
-	FREE = 0, MY = 2, ENEMY
+	FREE = 0, MY = 1, ENEMY
 }				t_owner;
 
 typedef struct	s_cell
 {
-	int		closest;
-	int		valid;
+	size_t	closest;
+	size_t	valid;
 	t_owner	initial;
 }				t_cell;
 
